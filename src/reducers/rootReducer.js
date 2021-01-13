@@ -1,9 +1,19 @@
 const initState = {
-    candidates: []
+    candidates: [],
+    selectedCandidate: false
 }
 
 const rootReducer = (state = initState, action) => {
-    return state
+    switch (action.type) {
+        case 'SELECT_CANDIDATE':
+            return {
+                ...state,
+                selectedCandidate: action.payload
+
+            }
+        default:
+            return state
+    }
 }
 
 

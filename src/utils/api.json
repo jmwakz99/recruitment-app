@@ -1,0 +1,67 @@
+{
+    "candidates": [
+        {
+            "id": 1,
+            "names": "John Doe",
+            "jobTitle": "Accountant",
+            "email": "john@gmail.com",
+            "phone": "+25473893388",
+            "yearsOfExperience": 2,
+            "cv": false
+        },
+        {
+            "id": 2,
+            "names": "Jane Ouma",
+            "jobTitle": "Software engineer",
+            "email": "jane@gmail.com",
+            "phone": "+25473893328",
+            "yearsOfExperience": 4,
+            "cv": true
+        },
+        {
+            "id": 3,
+            "names": "Michael Babu",
+            "jobTitle": "Content writer",
+            "email": "michael@gmail.com",
+            "phone": "+25473893308",
+            "yearsOfExperience": 5,
+            "cv": true
+        },
+        {
+            "id": 4,
+            "names": "Karen Wakio",
+            "jobTitle": "Film Producer",
+            "email": "karen@gmail.com",
+            "phone": "+25473893398",
+            "yearsOfExperience": 3,
+            "cv": false
+        },
+        {
+            "id": 5,
+            "names": "Simon Wanjiru",
+            "jobTitle": "Sales Representative",
+            "email": "simon@gmail.com",
+            "phone": "+25473833388",
+            "yearsOfExperience": 2,
+            "cv": true
+        }
+    ],
+    "questions": [],
+    "applications": [
+        {
+            "id": 1,
+            "candidateId": 2,
+            "jobTitle": "Sofware engineer"
+        },
+        {
+            "id": 1,
+            "candidateId": 2,
+            "jobTitle": "Sofware engineer"
+        },
+        {
+            "id": 1,
+            "candidateId": 1,
+            "jobTitle": "Sales representative"
+        }
+    ]
+}
