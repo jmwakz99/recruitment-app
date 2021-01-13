@@ -35,10 +35,10 @@ I had to pick the technologies that are easy to work with to make sure that I de
 Yes
 
 ### What would you do differently if you were allocated more time?
-improve on the design and ensure the api calls are called efficiently. I will also refactor my code and ensure there is seperation of concern within the folder structure and functions
+improve on the design and ensure the api calls are called efficiently. I will also refactor my code and ensure there is seperation of concern within the folder structure and functions. I would also write tests.
 
 
 
 
-
+NOTE: I also assumed /questions endpoint is the same as /comments endpoint
 

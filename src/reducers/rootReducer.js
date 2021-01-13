@@ -1,6 +1,6 @@
 const initState = {
-    candidates: [],
-    selectedCandidate: false
+    selectedCandidate: false,
+    loader: false
 }
 
 const rootReducer = (state = initState, action) => {
@@ -9,6 +9,12 @@ const rootReducer = (state = initState, action) => {
             return {
                 ...state,
                 selectedCandidate: action.payload
+
+            }
+        case 'TOGGLE_LOADER':
+            return {
+                ...state,
+                loader: action.payload
 
             }
         default:

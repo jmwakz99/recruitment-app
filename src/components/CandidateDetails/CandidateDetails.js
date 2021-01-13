@@ -36,7 +36,6 @@ class CandidateDetails extends Component {
 
     handleSubmit = (e, selectedCandidate) => {
         const { comment } = this.state
-        console.log(comment)
         e.preventDefault()
         if (comment && selectedCandidate) {
             // save the question 
@@ -50,7 +49,7 @@ class CandidateDetails extends Component {
 
                     chk.value = ""
                 })
-                window.M.toast({ html: 'Your comment was succefully sent!' })
+                window.M.toast({ html: 'comment sent!' })
 
             })
 
@@ -59,8 +58,6 @@ class CandidateDetails extends Component {
 
     }
     handleChange = (e) => {
-
-
         this.setState({
             comment: e.target.value
         })
@@ -73,6 +70,7 @@ class CandidateDetails extends Component {
         const { selectedCandidate } = this.props
         const { applications } = this.state
 
+        // check if the selected candidate has applied for any job
         let found = [];
         if (selectedCandidate && applications) {
             applications.forEach((apl) => {
@@ -89,10 +87,8 @@ class CandidateDetails extends Component {
         let htmlToDisplay;
         if (found.length > 0 && selectedCandidate.cv) {
             htmlToDisplay = <li className="active">
-                <div className="collapsible-header active"><i className="material-icons">folder_outline</i>CV</div>
-                <div className="collapsible-body"><span> <embed src="/cv.pdf" type="application/pdf" width="100%" height="600px" /></span>
+                <embed src="/cv.pdf" type="application/pdf" width="100%" height="600px" />
 
-                </div>
                 <div>
                     <form className="col s12" onSubmit={(e) => this.handleSubmit(e, selectedCandidate)}>
                         <div className="row">
@@ -113,7 +109,7 @@ class CandidateDetails extends Component {
             </li>
 
         } else if (found.length > 0 && selectedCandidate.cv === false) {
-            htmlToDisplay = <div className="collapsible-header"><div className="collapsible-header red-text"><i className="material-icons">error_outline</i>{selectedCandidate.names} please upload your cv</div></div>
+            htmlToDisplay = <div className="collapsible-header"><div className="collapsible-header red-text"><i className="material-icons">error_outline</i>No cv attached!</div></div>
 
 
 
@@ -137,8 +133,8 @@ class CandidateDetails extends Component {
                         <div className="col s12 m12">
                             <div className="card-tabs">
                                 <ul id="tabs-swipe-demo" className="tabs">
-                                    <li className="tab col white-text"><a className="active" href="#test-swipe-1"> Overview</a></li>
-                                    <li className="tab col"><a href="#test-swipe-2">My Files</a></li>
+                                    <li className="tab col white-text"><a href="#test-swipe-1"> Overview</a></li>
+                                    <li className="tab col"><a href="#test-swipe-2" className="active">My Files</a></li>
                                     <li className="tab col"><a href="#test-swipe-3">Applications</a></li>
                                 </ul>
                             </div>
@@ -154,7 +150,7 @@ class CandidateDetails extends Component {
                                     </ul>
                                 </div>
                                 <div id="test-swipe-2" className="col s12">
-                                    <ul className="collapsible z-depth-1">
+                                    <ul className=" z-depth-1">
                                         {htmlToDisplay}
 
 

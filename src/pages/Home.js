@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { selectCandidate } from '../actions/candidatesActions'
+import { toggleLoader } from '../actions/uiActions'
 
 
 import CandidateCard from '../components/shared/CandidateCard'
@@ -19,22 +20,32 @@ class Home extends Component {
     componentDidMount() {
         const M = window.M
         M.AutoInit()
+
+        // toggle the loader to improve user experience
+        this.props.toggleLoader(true)
+
         // fetch candidates from api
         axios.get('http://localhost:3000/candidates').then(response => {
             this.setState({
                 candidates: response.data
 
             })
+            setTimeout(() => {
+                this.props.toggleLoader(false)
+
+            }, 3000)
         }).catch(err => {
             console.log(err)
+            this.props.toggleLoader(false)
         })
 
     }
     handleChange = (e, candidate) => {
         let inputs = document.querySelectorAll('input')
         if (e.target.checked) {
+            // reachout to store/redux
             this.props.selectCandidate(candidate)
-
+            //clear all the inputs
             inputs.forEach(input => {
                 if (!input.checked) {
                     input.disabled = true
@@ -44,6 +55,7 @@ class Home extends Component {
 
 
         } else {
+            //clear all the inputs
             inputs.forEach(input => {
                 if (!input.checked) {
                     input.disabled = false
@@ -62,25 +74,37 @@ class Home extends Component {
     }
     render() {
         const { candidates } = this.state
-        const { selectedCandidate } = this.props
+        const { selectedCandidate, loader } = this.props
 
         return (
             <div className="container section">
+
                 <div className="row">
                     <h4>Candidates</h4>
-                    <div className="col s12 m6">
-                        <ul className="collection" style={{ backgroundColor: "white" }}>
-                            {
-                                candidates ? candidates.map((candidate) => (
-                                    <CandidateCard key={candidate.id} name={candidate.names} value={candidate} title={candidate.jobTitle} handleChange={(e) => this.handleChange(e, candidate)} />
-                                )) : null
+                    {
+                        loader ?
+                            <div className="col s12 m6 ">
+                                <div className="progress">
+                                    <div className="indeterminate"></div>
 
-                            }
+                                </div>
+                                <div>Please wait...</div>
+                            </div> : <div className="col s12 m6">
+                                <ul className="collection" style={{ backgroundColor: "white" }}>
+                                    {
+                                        candidates ? candidates.map((candidate) => (
+                                            <CandidateCard key={candidate.id} name={candidate.names} value={candidate} title={candidate.jobTitle} handleChange={(e) => this.handleChange(e, candidate)} />
+                                        )) : null
+
+                                    }
 
 
 
-                        </ul>
-                    </div>
+                                </ul>
+                            </div>
+
+                    }
+
                     <div className="col s12 m6">
                         {
                             selectedCandidate ? <CandidateDetails /> :
@@ -88,7 +112,7 @@ class Home extends Component {
                                     <div className="col s12 m12">
                                         <div className="card-panel info">
                                             <span className="dark-text">
-                                                Please selected a candidate to view his/her details.
+                                                Please select a candidate to view his/her details.
                             </span>
                                         </div>
                                     </div>
@@ -109,13 +133,15 @@ const mapStateToProps = state => {
 
     return {
         candidates: state.candidates,
+        loader: state.loader,
         selectedCandidate: state.selectedCandidate
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectCandidate: (candidate) => dispatch(selectCandidate(candidate))
+        selectCandidate: (candidate) => dispatch(selectCandidate(candidate)),
+        toggleLoader: (status) => dispatch(toggleLoader(status))
     }
 }
 
